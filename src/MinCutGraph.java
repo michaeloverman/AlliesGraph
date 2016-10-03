@@ -144,21 +144,12 @@ public class MinCutGraph {
 //            StringBuffer sb = new StringBuffer();
 
 //            while (mc.nodeSize() > 2) {
-//                sb.append(mc.contractRandomEdge());
+////                sb.append(mc.contractRandomEdge());
 //
 //            }
             int min = mc.edgeSize() / 2;
             minimum = min < minimum ? min : minimum;
-//            if (min == 0) {
-//                sb.append("Run #" + i);
-//                sb.append("  MINIMUM CUT: " + min);
-//                sb.append("  Running MIN: " + minimum);
-//                System.out.println(sb.toString());
-//            }
         }
-//        Long end = System.nanoTime() - beginning;
-//        System.out.println("\n\nFINAL MINIMUM CUT: " + minimum);
-//        System.out.println("Time: " + end);
 
 
         return minimum;

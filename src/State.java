@@ -9,9 +9,7 @@ public class State implements Comparable {
     private String abbrev;
 
     private Map<Integer, Integer> allies; // country code, weight
-    private Map<Integer, Integer> enemies;
-    private int allyCount;
-    private int enemyCount;
+    private ArrayList<State> consumedStates; // for minimum cut methods
 
     private int egonetSize;
     private int sccSizeChange;
@@ -19,8 +17,17 @@ public class State implements Comparable {
     private int minCutSize;
     private int minCutSizeChange;
     private double minCutChangePerAlly;
-    private boolean hasMinCut;
+    private boolean hasMinCut; // a simple 'tally' of whether the time-consuming min-cut operation has been completed
 
+    public State(String abbrev, int code, String name) {
+        this.name = name;
+        this.code = code;
+        this.abbrev = abbrev;
+        allies = new HashMap<>();
+        consumedStates = new ArrayList<>();
+        sccSizeChange = 0;
+        hasMinCut = false;
+    }
     public int getMinCutSize() {
         return minCutSize;
     }
@@ -54,17 +61,6 @@ public class State implements Comparable {
         this.egonetSize = egonetSize;
     }
 
-    public State(String abbrev, int code, String name) {
-        this.name = name;
-        this.code = code;
-        this.abbrev = abbrev;
-        allies = new HashMap<>();
-        enemies = new HashMap<>();
-        allyCount = 0;
-        enemyCount = 0;
-        sccSizeChange = 0;
-        hasMinCut = false;
-    }
     public void setSccChange(int i) {
         sccSizeChange = i;
         sccChangePerAlly = (double) sccSizeChange / egonetSize;
@@ -101,7 +97,6 @@ public class State implements Comparable {
         } else {
             allies.put(ally, 1);
         }
-        allyCount++;
     }
     public HashSet<Integer> getAllies() {
         HashSet<Integer> list = new HashSet<>();
@@ -109,15 +104,6 @@ public class State implements Comparable {
             list.add(i);
         }
         return list;
-    }
-    public void addEnemy(int enemy) {
-        if (enemies.containsKey(enemy)) {
-            int current = enemies.get(enemy);
-            enemies.put(enemy, current + 1);
-        } else {
-            enemies.put(enemy, 1);
-        }
-        enemyCount++;
     }
 
     @Override
