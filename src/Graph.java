@@ -10,8 +10,8 @@ public class Graph {
     protected HashSet<Integer> nodes;
     protected HashMap<Integer, HashSet<Integer>> edges;
     protected HashMap<Integer, HashSet<Integer>> reverseEdges;
-    private int numNodes;
-    private int numEdges;
+    protected int numNodes;
+    protected int numEdges;
 
     public Graph() {
         nodes = new HashSet<>();
@@ -44,12 +44,13 @@ public class Graph {
                 reverseEdges.get(i).remove(v);
             }
         }
+        numEdges -= edges.get(v).size();
         nodes.remove(v);
         numNodes--;
     }
     public List<Integer> getVertices(){
 
-        return (List<Integer>) nodes;
+        return new ArrayList<Integer>(nodes);
     }
 
     public void addEdge(int from, int to){
@@ -153,10 +154,44 @@ public class Graph {
         }
         return sb.toString();
     }
+    public String graphToMinCutString() {
+        StringBuffer sb = new StringBuffer();
+        for (int i : nodes) {
+            sb.append(i);
+            for (Integer j : edges.get(i)) {
+                sb.append("\t").append(j);
+            }
+            sb.append("\n");
+        }
+
+
+        return sb.toString();
+    }
     public static void main(String[] args) {
         Graph g = new Graph();
         Parser.parseTestCode(g);
         System.out.println("Num Vert" + g.getNumVertices());
         System.out.println("Num Edge" + g.getNumEdges());
+        System.out.println(g.toString());
+
+        List<Graph> sccs = g.getSCCs();
+        System.out.println(sccs.size() + " sccs");
+        for (Graph temp : sccs) {
+            System.out.println("=====");
+            System.out.println(temp.toString());
+        }
+        System.out.println("\n\nREMOVE NODE 8\n");
+        g.removeVertex(8);
+        System.out.println("Num Vert" + g.getNumVertices());
+        System.out.println("Num Edge" + g.getNumEdges());
+        System.out.println(g.toString());
+
+        sccs = g.getSCCs();
+        System.out.println(sccs.size() + " sccs");
+        for (Graph temp : sccs) {
+            System.out.println("=====");
+            System.out.println(temp.toString());
+        }
+
     }
 }

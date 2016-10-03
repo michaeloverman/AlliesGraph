@@ -75,8 +75,15 @@ public class GraphTest {
     public void getSCCs() throws Exception {
         List<Graph> sccs = g.getSCCs();
         for (Graph g : sccs) {
-            System.out.println("====" + sccs.toString());
+//            System.out.println("====" + sccs.toString());
         }
     }
 
+    @org.junit.Test
+    public void getMinCut() throws Exception {
+        MinCutGraph mcg = new MinCutGraph();
+        System.out.println(g.graphToMinCutString());
+        mcg.parseGraph(g.graphToMinCutString());
+        assertEquals("MINCUT should be one", 1, mcg.getMinCut());
+    }
 }
