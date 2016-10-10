@@ -145,8 +145,9 @@ public class AlliesGraph extends Graph {
         for (State s : states.values()) {
             if (s.getEgonetSize() < minimumAllies) continue;
             System.out.println("MinCutting " + s.getName());
-            MinCutGraph mcg = new MinCutGraph();
-            mcg.parseGraph(stateEgonets.get(s.getCode()).graphToMinCutString());
+            System.out.println(stateEgonets.get(s.getCode()).graphToMinCutString());
+            MinCutGraph mcg = new MinCutGraph(stateEgonets.get(s.getCode()).graphToMinCutString());
+            mcg.parseGraph();
             s.setHasMinCut(true);
             s.setMinCutSize(mcg.getMinCut());
         }
@@ -176,6 +177,7 @@ public class AlliesGraph extends Graph {
         System.out.println("Finding Allies & Egonets:");
         graph.findAlliesAndEgonets();
 
+        System.out.println("Finding MinCuts:");
         graph.findMinCutSizes(25);
         List<State> newestList = graph.statesByMinCutChange();
         for (State s : newestList) {

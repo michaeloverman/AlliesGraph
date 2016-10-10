@@ -1,9 +1,9 @@
 import java.util.*;
 
 /**
- * @author Michael Overman
- *
- * Class allows for creation of generalized tools to manipulate data
+ * Class allows for creation of generalized tools to manipulate data. Keeps a "simple" graph structure, with nodes and
+ * edges in hashMaps. Methods include: adding/removing vertices, finding EgoNets, finding Strongly Connected Components, and
+ * running the MinCut graph to find the Minimum cut of the graph.
  *
  */
 public class Graph {
@@ -52,19 +52,17 @@ public class Graph {
 
         return new ArrayList<Integer>(nodes);
     }
-    public void contractEdge(int head, int tail) {
-        redirectEdges(head, tail);
-        nodes.remove(head);
-    }
-    public void redirectEdges(int head, int tail) {
-        for (int i : edges.get(head)) {
-            edges.get(tail).add(i);
-            edges.get(i).remove(head);
-            edges.get(i).add(tail);
-        }
-    }
+//    public void redirectEdges(int head, int tail) {
+//        for (int i : edges.get(head)) {
+//            edges.get(tail).add(i);
+//            edges.get(i).remove(head);
+//            edges.get(i).add(tail);
+//        }
+//    }
     public void addEdge(int from, int to){
-        if(!nodes.contains(from) || !nodes.contains(to)) return;
+        if(!nodes.contains(from) || !nodes.contains(to)) {
+            return;
+        }
 
         edges.get(from).add(to);
         reverseEdges.get(to).add(from);
@@ -88,25 +86,25 @@ public class Graph {
 
         return egonet;
     }
-    public int getMinCut() {
-        int minimum = Integer.MAX_VALUE;
-        for (int i = 0; i < 10000; i++) {
-            Graph minCutGraph = new Graph();
-            // make copy of the graph here to use for mincutting
-            while (minCutGraph.numNodes > 2) {
-                minCutGraph.contractRandomEdge();
-            }
-            int min = minCutGraph.getNumEdges() / 2;
-            minimum = min < minimum ? min : minimum;
-        }
-        return minimum;
-    }
-    private void contractRandomEdge() {
-        Random rand = new Random();
-        int node = rand.nextInt(nodes.size());
-        int edge = rand.nextInt(edges.get(node).size());
-
-    }
+//    public int getMinCut() {
+//        int minimum = Integer.MAX_VALUE;
+////        for (int i = 0; i < 10000; i++) {
+//            MinCutGraph minCutGraph = new MinCutGraph();
+//            // make copy of the graph here to use for mincutting
+////            while (minCutGraph.numNodes > 2) {
+////                minCutGraph.contractRandomEdge();
+////            }
+//            int min = minCutGraph.getMinCut();
+//            minimum = min < minimum ? min : minimum;
+////        }
+//        return minimum;
+//    }
+//    private void contractRandomEdge() {
+//        Random rand = new Random();
+//        int node = rand.nextInt(nodes.size());
+//        int edge = rand.nextInt(edges.get(node).size());
+//
+//    }
     public List<Graph> getSCCs() {
         Stack<Integer> finishedStack = firstDFS(getVertices());
         List<Graph> list = generateSCCs(finishedStack);

@@ -20,6 +20,7 @@ public class MinCutGraph {
     public MinCutGraph(String gs) {
         this();
         this.graphString = gs;
+
     }
 
     public int nodeSize() {
@@ -29,7 +30,7 @@ public class MinCutGraph {
         return edges.size();
     }
     public String contractRandomEdge() {
-        Random rand = new Random(); // use same seed for initial testing
+        Random rand = new Random(); // use same seed for initial testing NO NOT HERE ANYWAY!
         int nix = rand.nextInt(edges.size());
         return contractEdge(edges.get(nix));
 
@@ -108,6 +109,13 @@ public class MinCutGraph {
         Scanner scanner = new Scanner(graph).useDelimiter("\\n");
         parseWithScanner(scanner);
     }
+    public void parseGraph() {
+        if(graphString == null) {
+            System.out.println("Null graphString....returning");
+            return;
+        }
+        parseGraph(graphString);
+    }
     private void parseWithScanner(Scanner scanner) {
         while (scanner.hasNext()) {
             String data = scanner.nextLine();
@@ -118,6 +126,7 @@ public class MinCutGraph {
                 newNode.addNeighbor(Integer.parseInt(pieces[i]));
                 addEdge(newNode.getId(), Integer.parseInt(pieces[i]));
             }
+//            System.out.println("Adding newNode to graph...");
             nodes.put(Integer.parseInt(pieces[0]), newNode);
         }
     }
@@ -141,18 +150,20 @@ public class MinCutGraph {
 //    }
     public int getMinCut() {
         int minimum = Integer.MAX_VALUE;
+//        System.out.println("Nodes: " + nodes.size());
+//        System.out.println("log of N: " + Math.log(nodes.size()));
         int numRuns = (int) (nodes.size() * nodeSize() * Math.log(nodes.size()));
         for (int i = 0; i < numRuns; i++) {
-            MinCutGraph mc = new MinCutGraph();
-            mc.parseGraph(graphString);
+            MinCutGraph mc = new MinCutGraph(graphString);
+            mc.parseGraph();
             while (mc.nodeSize() > 2) {
                 mc.contractRandomEdge();
+//                System.out.println(this.toString());
             }
             int min = mc.edgeSize() / 2;
             minimum = min < minimum ? min : minimum;
         }
-
-
+        System.out.println("--MinCutGraph: getMinCut() run " + numRuns + " times; MinCut: " + minimum);
         return minimum;
     }
 
@@ -180,6 +191,7 @@ public class MinCutGraph {
             neighbors.remove((Integer) n);
         }
         public void resetEdge(Node h, Node t) {
+            if(!neighbors.contains(h.getId())) System.out.println("Neighbors doesn't contain node: " + h.getId());
             int head = h.getId();
             if (head != t.getId()) {
                 neighbors.set(neighbors.indexOf(head), t.getId());
@@ -230,5 +242,17 @@ public class MinCutGraph {
             return tail + "-->" + head;
         }
 
+    }
+    public String toString() {
+        return graphString;
+    }
+    public static void main(String[] args) {
+        Graph g = new Graph();
+        Parser.parseTestCode(g);
+
+        MinCutGraph mcg = new MinCutGraph(g.graphToMinCutString());
+        mcg.parseGraph();
+//        System.out.println(mcg.toString());
+        System.out.println("MinCutofSampleGraph: " + mcg.getMinCut());
     }
 }
