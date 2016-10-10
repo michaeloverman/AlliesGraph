@@ -2,7 +2,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Michael on 9/16/2016.
+ * A Utility class used to create the overall graph structure. Created by the Parser, the Dispute holds the
+ * States from each side of the dispute in the appropriate list. Contains methods to add States, return lists of each
+ * side of the dispute, etc.
  */
 public class Dispute {
     private List<String> sideA;
@@ -14,6 +16,9 @@ public class Dispute {
         sideA = new ArrayList<>();
         sideB = new ArrayList<>();
     }
+    /*
+    Puts the state in the correct list according to side
+     */
     public void addState(String s, int side) {
         switch (side) {
             case 0:
