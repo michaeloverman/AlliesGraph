@@ -3,7 +3,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Created by Michael on 9/26/2016.
+ * Method tests for the Graph class
  */
 public class GraphTest {
     private Graph g;
@@ -35,11 +35,6 @@ public class GraphTest {
     }
 
     @org.junit.Test
-    public void getVertices() throws Exception {
-
-    }
-
-    @org.junit.Test
     public void addEdge() throws Exception {
         g.addVertex(15);
         g.addEdge(14, 15);
@@ -63,11 +58,6 @@ public class GraphTest {
         test = g.getEgonet(14);
         assertEquals("Egonet 14 after addition Nodes", 4, test.getNumVertices());
         assertEquals("Egonet 14 after addition Edges", 8, test.getNumEdges());
-
-    }
-
-    @org.junit.Test
-    public void exportGraph() throws Exception {
 
     }
 

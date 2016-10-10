@@ -5,7 +5,8 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 /**
- * Created by Michael on 9/16/2016.
+ * A utility class to parse data from source, and populate graphs. One method for each file, and a method for
+ * populating a small test graph.
  */
 public class Parser {
     private static String codes = "data/CoWCountryCodes.csv";

@@ -1,10 +1,11 @@
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 
 /**
- * Created by Michael on 9/9/2016.
+ * Utility class, creates a "parallel" graph for the minimum cut algorithm to manipulate. Methods for finding
+ * the min-cut include:
+ * getMinCut() - coordinator of the process - runs many times to ensure accuracy
+ * contractEdge() - combines two nodes into one
+ * redirectTails() - moves edges to and from the consumed node to the remaining node
  */
 public class MinCutGraph {
     Map<Integer, Node> nodes;
@@ -16,12 +17,9 @@ public class MinCutGraph {
         edges = new ArrayList<>();
         graphString = "";
     }
-    public MinCutGraph(String filename) {
+    public MinCutGraph(String gs) {
         this();
-//        parseGraph(filename);
-        parseFile(filename);
-//        System.out.println("Nodes: " + nodeSize());
-//        System.out.println("Edges: " + edgeSize());
+        this.graphString = gs;
     }
 
     public int nodeSize() {
@@ -37,7 +35,6 @@ public class MinCutGraph {
 
     }
     public String contractEdge(Edge e) {
-//        System.out.println("Contracting Edge: " + e.toString());
         String string = e.toString();
         Node t = nodes.get(e.getTail());
         Node h = nodes.get(e.getHead());
@@ -45,11 +42,13 @@ public class MinCutGraph {
         t.consumeNode(h);
         nodes.remove(h.getId());
         generateEdges();
-//        System.out.println(nodeSize() + " nodes remaining");
-//        System.out.println(listNodes());
-//        System.out.println(edgeSize() + " edges remaining");
         return string;
     }
+
+    /**
+     * after contracting an edge and redirecting tails, it is easier to recreate the List of edges,
+     * rather than dealing with the List of Edges directly.
+     */
     public void generateEdges() {
         edges = new ArrayList<>();
         for (Node n : nodes.values()) {
@@ -76,28 +75,38 @@ public class MinCutGraph {
         Edge edge = new Edge(tail, head);
         addEdge(edge);
     }
-    public List<Edge> getEdges() {
-        ArrayList<Edge> list = new ArrayList<>();
-        list.addAll(edges);
-        return list;
-    }
-    public List<Node> getNodes() {
-        ArrayList<Node> list = new ArrayList<>();
-        list.addAll(nodes.values());
+//    public List<Edge> getEdges() {
+//        ArrayList<Edge> list = new ArrayList<>();
+//        list.addAll(edges);
+//        return list;
+//    }
+//    public List<Node> getNodes() {
+//        ArrayList<Node> list = new ArrayList<>();
+//        list.addAll(nodes.values());
+//
+//        return list;
+//    }
+//    private void parseFile(String fileName) {
+//        Path filePath = Paths.get(fileName);
+//        Scanner scanner = null;
+//        try {
+//            scanner = new Scanner(filePath);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        parseWithScanner(scanner);
+//
+//    }
 
-        return list;
-    }
-    private void parseFile(String fileName) {
-        Path filePath = Paths.get(fileName);
-        Scanner scanner = null;
-        try {
-            scanner = new Scanner(filePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+    /**
+     * Methods for parsing original graph into the mincut graph's data structure. Takes a string
+     * representation of the original graph as a list of each node followed by its neighbors.
+     * @param graph - string representation of graph
+     */
+    public void parseGraph(String graph) {
+        Scanner scanner = new Scanner(graph).useDelimiter("\\n");
         parseWithScanner(scanner);
-
     }
     private void parseWithScanner(Scanner scanner) {
         while (scanner.hasNext()) {
@@ -110,48 +119,116 @@ public class MinCutGraph {
                 addEdge(newNode.getId(), Integer.parseInt(pieces[i]));
             }
             nodes.put(Integer.parseInt(pieces[0]), newNode);
-//            System.out.println(newNode.toString());
         }
     }
-    public void parseGraph(String graph) {
-        graphString = graph;
-        Scanner scanner = new Scanner(graph).useDelimiter("\\n");
-        parseWithScanner(scanner);
-    }
-    public String edgesToString() {
-        StringBuffer sb = new StringBuffer();
-        for (Edge e : edges) {
-            sb.append(e.toString() + "\n");
-        }
-        return sb.toString();
-    }
-    public String listNodes() {
-        StringBuffer sb = new StringBuffer();
-        for (Node n : nodes.values()) {
-            sb.append(n.toString() + "\n");
-        }
-        return sb.toString();
-    }
-    public String printNode(int n) {
-        Node node = nodes.get(n);
-        return node.toString();
-    }
+//    public String edgesToString() {
+//        StringBuffer sb = new StringBuffer();
+//        for (Edge e : edges) {
+//            sb.append(e.toString() + "\n");
+//        }
+//        return sb.toString();
+//    }
+//    public String listNodes() {
+//        StringBuffer sb = new StringBuffer();
+//        for (Node n : nodes.values()) {
+//            sb.append(n.toString() + "\n");
+//        }
+//        return sb.toString();
+//    }
+//    public String printNode(int n) {
+//        Node node = nodes.get(n);
+//        return node.toString();
+//    }
     public int getMinCut() {
         int minimum = Integer.MAX_VALUE;
-        for (int i = 0; i < 10000; i++) {
+        int numRuns = (int) (nodes.size() * nodeSize() * Math.log(nodes.size()));
+        for (int i = 0; i < numRuns; i++) {
             MinCutGraph mc = new MinCutGraph();
             mc.parseGraph(graphString);
-//            StringBuffer sb = new StringBuffer();
-
-//            while (mc.nodeSize() > 2) {
-////                sb.append(mc.contractRandomEdge());
-//
-//            }
+            while (mc.nodeSize() > 2) {
+                mc.contractRandomEdge();
+            }
             int min = mc.edgeSize() / 2;
             minimum = min < minimum ? min : minimum;
         }
 
 
         return minimum;
+    }
+
+    /**
+     * Private utility class for storing data about each node in the graph to be mincut.
+     * ArrayList holds neighbors, and another holds 'consumed' nodes.
+     */
+    private class Node {
+        private int id;
+        private ArrayList<Integer> neighbors;
+        private ArrayList<Integer> consumedNodes;
+
+        public int getId() {
+            return id;
+        }
+        public Node(int id){
+            this.id = id;
+            neighbors = new ArrayList<>();
+            consumedNodes = new ArrayList<>();
+        }
+        public void addNeighbor(int n) {
+            neighbors.add(n);
+        }
+        public void removeNeighbor(int n) {
+            neighbors.remove((Integer) n);
+        }
+        public void resetEdge(Node h, Node t) {
+            int head = h.getId();
+            if (head != t.getId()) {
+                neighbors.set(neighbors.indexOf(head), t.getId());
+            }
+        }
+        public List<Integer> getNeighbors() {
+            List<Integer> list = new ArrayList<>();
+            list.addAll(neighbors);
+            return list;
+        }
+        public void consumeNode(Node other) {
+            for(int i : other.getNeighbors()) {
+                if (i != this.getId()) this.addNeighbor(i);
+            }
+
+            consumedNodes.add(other.getId());
+
+        }
+        public String toString() {
+            StringBuffer sb = new StringBuffer(id + ": ");
+            for(int i : neighbors) {
+                sb.append(i + " ");
+            }
+            return sb.toString();
+        }
+    }
+
+    /**
+     * private utility class edge, holds head and tail nodes.
+     */
+    private class Edge {
+        private int tail;
+        private int head;
+
+        public Edge(int tail, int head) {
+            this.tail = tail;
+            this.head = head;
+        }
+
+        public int getTail() {
+            return tail;
+        }
+
+        public int getHead() {
+            return head;
+        }
+        public String toString() {
+            return tail + "-->" + head;
+        }
+
     }
 }

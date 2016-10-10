@@ -10,19 +10,15 @@ public class AlliesGraph extends Graph {
     private static HashMap<Integer, Graph> stateEgonets;
     private static HashMap<Integer, Graph> removedStateEgonets;
     private static HashMap<Integer, List<Graph>> removedEgoSCCs;
-//    private HashMap<Integer, HashSet<Integer>> edges;
-//    private HashMap<Integer, HashSet<Integer>> reverseEdges;
-//    private int numEdges;
+
 
     public AlliesGraph() {
-        states = new HashMap<Integer, State>();
-        disputes = new HashMap<Integer, Dispute>();
-        abbrevs = new HashMap<String, Integer>();
+        states = new HashMap<>();
+        disputes = new HashMap<>();
+        abbrevs = new HashMap<>();
         removedStateEgonets = new HashMap<>();
         removedEgoSCCs = new HashMap<>();
-//        edges = new HashMap<>();
-//        reverseEdges = new HashMap<>();
-//        numEdges = 0;
+
     }
     public void addDispute(Dispute disp) {
         disputes.put(disp.getId(), disp);
@@ -33,9 +29,7 @@ public class AlliesGraph extends Graph {
     public boolean containsDispute(int id) {
         return disputes.containsKey(id);
     }
-//    public void addVertex(int num) {
-//        addState(states.get(num));
-//    }
+
     public void addState(State s) {
         states.put(s.getCode(), s);
         abbrevs.put(s.getAbbrev(), s.getCode());
@@ -43,38 +37,17 @@ public class AlliesGraph extends Graph {
         reverseEdges.put(s.getCode(), new HashSet<>());
         nodes.add(s.getCode());
     }
-//    public int getNumVertices() {
-//        return getStateCount();
-//    }
-//    public List<Integer> getVertices() {
-//        List<Integer> list = new ArrayList<>();
-//        for (State s : getStates()) {
-//            list.add(s.getCode());
-//        }
-//        return list;
-//    }
+
     public int getStateCount() {
         return states.size();
     }
-    public List<State> getStates() {
-        ArrayList<State> list = new ArrayList<>();
-        for (State s : states.values()) {
-            list.add(s);
-        }
-        return list;
-    }
-//    public int getNumEdges() {
-//        return numEdges;
-//    }
+
 
     public void disputesToEdges() {
         for (Dispute d : disputes.values()) {
-//            System.out.println(d.toString());
             if (d.sideA().size() > 1) {
                 for (int i = 0; i < d.sideA().size() - 1; i++) {
-//                    System.out.print("outer loop " + i + ": ");
                     for (int j = i + 1; j < d.sideA().size(); j++) {
-//                        System.out.println(d.getId() + " " + i + " " + j);
                         String sa = d.sideA().get(i);
                         String sb = d.sideA().get(j);
                         int a = abbrevs.get(sa);
@@ -89,14 +62,11 @@ public class AlliesGraph extends Graph {
                         two.addAlly(one.getCode());
                         numEdges++;
                     }
-//                    System.out.println("");
                 }
             }
             if (d.sideB().size() > 1) {
                 for (int i = 0; i < d.sideB().size() - 1; i++) {
-//                    System.out.print("outer loop " + i + ": ");
                     for (int j = i + 1; j < d.sideB().size(); j++) {
-//                        System.out.println(d.getId() + " " + i + " " + j);
                         String sa = d.sideB().get(i);
                         String sb = d.sideB().get(j);
                         int a = abbrevs.get(sa);
@@ -107,13 +77,9 @@ public class AlliesGraph extends Graph {
                         two.addAlly(one.getCode());
                         numEdges++;
                     }
-//                    System.out.println("");
                 }
             }
-
-    //        System.out.println(" : " + d.sideA().toString());
         }
-
     }
 
     private void findAlliesAndEgonets() {
@@ -131,26 +97,9 @@ public class AlliesGraph extends Graph {
             removedEgoSCCs.put(s.getCode(), sccs);
             s.setSccChange(sccs.size() - 1);
         }
-
-//        for (int i : stateEgonets.keySet()) {
-//            System.out.println("State: " + states.get(i).getName() + " Egonet Size: " +
-//                    stateEgonets.get(i).getNumVertices());
-//        }
-
     }
-//    @Override
-//    public void dfsVisit(int v, HashSet<Integer> visited, Stack<Integer> finished) {
-//        visited.add(v);
-//        HashSet<Integer> searchNodes = states.get(v).getAllies();
-//        for (int n : searchNodes) {
-//            if (!visited.contains(n)) {
-//                dfsVisit(n, visited, finished);
-//            }
-//        }
-//        finished.push(v);
-//    }
     public void egonetsBySize() {
-        egonetsBySize(1000);
+        egonetsBySize(Math.max(1000, states.size()));
     }
     public void egonetsBySize(int howMany) {
         if (stateEgonets == null) return;
@@ -161,25 +110,7 @@ public class AlliesGraph extends Graph {
             System.out.println(tempStates.remove().egonetToString());
         }
     }
-//    public Graph getEgonet(int center) {
-//        return alliesEgonet(states.get(center));
-//    }
-//    public Graph alliesEgonet(State state) {
-//        AlliesGraph egonet = new AlliesGraph();
-//        if (!states.containsValue(state)) return egonet;
-//        egonet.addState(state);
-//        for(int i : state.getAllies()) {
-//            egonet.addState(states.get(i));
-//            egonet.addEdge(state.getCode(), i);
-//        }
-//        for (int i : egonet.getVertices()) {
-//            for (int j : states.get(i).getAllies()) {
-//                egonet.addEdge(i, j);  // addEdge method does not add the edge, if the neighbor is not already in the egonet
-//            }
-//        }
-//
-//        return egonet;
-//    }
+
     public List<State> statesBySccChange(int howMany) {
         howMany = Math.min(howMany, states.size());
         ArrayList<State> queue = new ArrayList<>(howMany);
@@ -212,14 +143,12 @@ public class AlliesGraph extends Graph {
     }
     public void findMinCutSizes(int minimumAllies) {
         for (State s : states.values()) {
-            if (s.getEgonetSize() < 15) continue;
+            if (s.getEgonetSize() < minimumAllies) continue;
             System.out.println("MinCutting " + s.getName());
             MinCutGraph mcg = new MinCutGraph();
             mcg.parseGraph(stateEgonets.get(s.getCode()).graphToMinCutString());
-            s.setMinCutSize(mcg.getMinCut());
-            mcg.parseGraph(removedStateEgonets.get(s.getCode()).graphToMinCutString());
-            s.setMinCutSizeChange(s.getMinCutSize() - mcg.getMinCut());
             s.setHasMinCut(true);
+            s.setMinCutSize(mcg.getMinCut());
         }
     }
     public static void main(String[] args) {
@@ -246,11 +175,7 @@ public class AlliesGraph extends Graph {
 
         System.out.println("Finding Allies & Egonets:");
         graph.findAlliesAndEgonets();
-//        System.out.println("Finished Finding Allies");
 
-//        graph.egonetsBySize();
-
-//        int VERTEXTOTEST = 2;
         graph.findMinCutSizes(25);
         List<State> newestList = graph.statesByMinCutChange();
         for (State s : newestList) {
@@ -289,7 +214,6 @@ public class AlliesGraph extends Graph {
             sb.append("\n");
             System.out.println(sb.toString());
 
-//            System.out.println(stateEgonets.get(s.getCode()).graphToMinCutString());
         }
 
     }
