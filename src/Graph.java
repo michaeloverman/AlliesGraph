@@ -23,8 +23,8 @@ public class Graph {
         numEdges = 0;
         numNodes = 0;
     }
-    public int getNumVertices(){
 
+    public int getNumVertices(){
         return numNodes;
     }
 
@@ -39,6 +39,7 @@ public class Graph {
         reverseEdges.put(num, new HashSet<>());
         numNodes++;
     }
+
     public void removeVertex(int v) {
         for (int i : edges.keySet()) {
             if (i != v) {
@@ -51,22 +52,15 @@ public class Graph {
         nodes.remove(v);
         numNodes--;
     }
-    public List<Integer> getVertices(){
 
+    public List<Integer> getVertices(){
         return new ArrayList<Integer>(nodes);
     }
-//    public void redirectEdges(int head, int tail) {
-//        for (int i : edges.get(head)) {
-//            edges.get(tail).add(i);
-//            edges.get(i).remove(head);
-//            edges.get(i).add(tail);
-//        }
-//    }
+
     public void addEdge(int from, int to){
         if(!nodes.contains(from) || !nodes.contains(to)) {
             return;
         }
-
         edges.get(from).add(to);
         reverseEdges.get(to).add(from);
         numEdges++;
@@ -79,37 +73,34 @@ public class Graph {
         for(int i : edges.get(center)) {
             if (i == center) continue;
             egonet.addVertex(i);
-            egonet.addEdge(center, i);
-//            egonet.addEdge(i, center);
+            egonet.addEdge(center, i); // addEdge method does not add the edge, if the neighbor is not already in the egonet
         }
         for (int i : egonet.getVertices()) {
             if (i == center) continue;
             for (int j : edges.get(i)) {
                 if (i == j) continue;
                 egonet.addEdge(i, j);  // addEdge method does not add the edge, if the neighbor is not already in the egonet
-//                egonet.addEdge(j, i);
             }
         }
-
         return egonet;
     }
-//    public int getMinCut() {
-//        MinCutGraph mcg = new MinCutGraph(graphToMinCutString());
-//        mcg.parseGraph();
-//        return mcg.getMinCut();
-//    }
-//    private void contractRandomEdge() {
-//        Random rand = new Random();
-//        int node = rand.nextInt(nodes.size());
-//        int edge = rand.nextInt(edges.get(node).size());
-//
-//    }
+
+    /**
+     * getSCCs() uses generateSCCs to create a list of the SCCs in the graph. Calls the first DFS, to create
+     * the order of vertices for the reverse DFS to find the SCCs.
+     * @return a List of Graphs
+     */
     public List<Graph> getSCCs() {
         Stack<Integer> finishedStack = firstDFS(getVertices());
         List<Graph> list = generateSCCs(finishedStack);
         return list;
     }
 
+    /**
+     * method for getSCCs() - takes the stack of vertices, calls the second DFS method to generate the SCC graphs.
+     * @param vertices
+     * @return
+     */
     private List<Graph> generateSCCs(Stack<Integer> vertices) {
         List<Graph> list = new ArrayList<>();
         HashSet<Integer> visited = new HashSet<>();
@@ -124,7 +115,9 @@ public class Graph {
         }
         return list;
     }
-
+    /*
+     * firstDFS is the 'forward' DFS, used to determine vertex search order.
+     */
     private Stack<Integer> firstDFS(List<Integer> vertices){
         Stack<Integer> finished = new Stack<>();
         HashSet<Integer> visited = new HashSet<>();
@@ -137,6 +130,9 @@ public class Graph {
         return finished;
     }
 
+    /*
+     * second, or reverse, dfs
+     */
     private void sccDFSVisit(Graph g, int v, HashSet<Integer> visited){
         visited.add(v);
         g.addVertex(v);
@@ -149,6 +145,9 @@ public class Graph {
         }
     }
 
+    /*
+     * meat of the dfs process
+     */
     private void dfsVisit(int v, HashSet<Integer> visited, Stack<Integer> finished) {
         visited.add(v);
         HashSet<Integer> searchNodes = edges.get(v);
@@ -160,14 +159,19 @@ public class Graph {
         finished.push(v);
     }
 
-    public HashMap<Integer, HashSet<Integer>> exportGraph(){
-        HashMap<Integer, HashSet<Integer>> hash = new HashMap<>();
-        for (Integer i : nodes) {
-            hash.put(i, edges.get(i));
-        }
+//    public HashMap<Integer, HashSet<Integer>> exportGraph(){
+//        HashMap<Integer, HashSet<Integer>> hash = new HashMap<>();
+//        for (Integer i : nodes) {
+//            hash.put(i, edges.get(i));
+//        }
+//
+//        return hash;
+//    }
 
-        return hash;
-    }
+    /**
+     * Utility method used primarily for debugging
+     * @return
+     */
     public String toString() {
         StringBuffer sb = new StringBuffer();
         for (int i : nodes) {
@@ -179,6 +183,11 @@ public class Graph {
         }
         return sb.toString();
     }
+
+    /**
+     * method to put the vertices and edges in the proper format for MinCutGraph to process
+     * @return
+     */
     public String graphToMinCutString() {
         StringBuffer sb = new StringBuffer();
         for (int i : nodes) {
@@ -188,38 +197,41 @@ public class Graph {
             }
             sb.append("\n");
         }
-
-
         return sb.toString();
     }
+
+    /**
+     * main method, used primarily for testing/debugging purposes
+     * @param args
+     */
     public static void main(String[] args) {
-//        Graph g = new Graph();
-//        Parser.parseTestCode(g);
-//        System.out.println("Num Vert" + g.getNumVertices());
-//        System.out.println("Num Edge" + g.getNumEdges());
-//        System.out.println(g.toString());
-//
-//        List<Graph> sccs = g.getSCCs();
-//        System.out.println(sccs.size() + " sccs");
-//        for (Graph temp : sccs) {
-//            System.out.println("=====");
-//            System.out.println(temp.toString());
-//        }
-//
-////        System.out.println(g.getMinCut());
-//
-//        System.out.println("\n\nREMOVE NODE 8\n");
-//        g.removeVertex(8);
-//        System.out.println("Num Vert" + g.getNumVertices());
-//        System.out.println("Num Edge" + g.getNumEdges());
-//        System.out.println(g.toString());
-//
-//        sccs = g.getSCCs();
-//        System.out.println(sccs.size() + " sccs");
-//        for (Graph temp : sccs) {
-//            System.out.println("=====");
-//            System.out.println(temp.toString());
-//        }
+        Graph g = new Graph();
+        Parser.parseTestCode(g);
+        System.out.println("Num Vert" + g.getNumVertices());
+        System.out.println("Num Edge" + g.getNumEdges());
+        System.out.println(g.toString());
+
+        List<Graph> sccs = g.getSCCs();
+        System.out.println(sccs.size() + " sccs");
+        for (Graph temp : sccs) {
+            System.out.println("=====");
+            System.out.println(temp.toString());
+        }
+
+//        System.out.println(g.getMinCut());
+
+        System.out.println("\n\nREMOVE NODE 8\n");
+        g.removeVertex(8);
+        System.out.println("Num Vert" + g.getNumVertices());
+        System.out.println("Num Edge" + g.getNumEdges());
+        System.out.println(g.toString());
+
+        sccs = g.getSCCs();
+        System.out.println(sccs.size() + " sccs");
+        for (Graph temp : sccs) {
+            System.out.println("=====");
+            System.out.println(temp.toString());
+        }
 
         String content = null;
         try {
