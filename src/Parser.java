@@ -13,8 +13,8 @@ public class Parser {
 //    private static String codes = "data/shortCoW.txt";  // used for testing
     private static String mida = "data/MIDA_4.01.csv";
     private static String midb = "data/MIDB_4.01.csv";
-    private static String testCode = "data/small_test_graph"; // used for testing
-
+    private static String testCode = "data/small_test_graph.txt"; // used for testing
+//    private static String testCode = "data/med_test_graph";
     /**
      * Method to parse file of disputes.
      * Use AFTER parsing file of Country Codes, and States have been created.

@@ -1,3 +1,6 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 /**
@@ -41,7 +44,7 @@ public class Graph {
             if (i != v) {
                 boolean success = edges.get(i).remove(v);
                 if(success) numEdges--;
-                reverseEdges.get(i).remove(v);
+                reverseEdges.get(v).remove(i);
             }
         }
         numEdges -= edges.get(v).size();
@@ -74,30 +77,26 @@ public class Graph {
         if (!nodes.contains(center)) return egonet;
         egonet.addVertex(center);
         for(int i : edges.get(center)) {
+            if (i == center) continue;
             egonet.addVertex(i);
             egonet.addEdge(center, i);
+//            egonet.addEdge(i, center);
         }
         for (int i : egonet.getVertices()) {
             if (i == center) continue;
             for (int j : edges.get(i)) {
+                if (i == j) continue;
                 egonet.addEdge(i, j);  // addEdge method does not add the edge, if the neighbor is not already in the egonet
+//                egonet.addEdge(j, i);
             }
         }
 
         return egonet;
     }
 //    public int getMinCut() {
-//        int minimum = Integer.MAX_VALUE;
-////        for (int i = 0; i < 10000; i++) {
-//            MinCutGraph minCutGraph = new MinCutGraph();
-//            // make copy of the graph here to use for mincutting
-////            while (minCutGraph.numNodes > 2) {
-////                minCutGraph.contractRandomEdge();
-////            }
-//            int min = minCutGraph.getMinCut();
-//            minimum = min < minimum ? min : minimum;
-////        }
-//        return minimum;
+//        MinCutGraph mcg = new MinCutGraph(graphToMinCutString());
+//        mcg.parseGraph();
+//        return mcg.getMinCut();
 //    }
 //    private void contractRandomEdge() {
 //        Random rand = new Random();
@@ -194,30 +193,44 @@ public class Graph {
         return sb.toString();
     }
     public static void main(String[] args) {
-        Graph g = new Graph();
-        Parser.parseTestCode(g);
-        System.out.println("Num Vert" + g.getNumVertices());
-        System.out.println("Num Edge" + g.getNumEdges());
-        System.out.println(g.toString());
+//        Graph g = new Graph();
+//        Parser.parseTestCode(g);
+//        System.out.println("Num Vert" + g.getNumVertices());
+//        System.out.println("Num Edge" + g.getNumEdges());
+//        System.out.println(g.toString());
+//
+//        List<Graph> sccs = g.getSCCs();
+//        System.out.println(sccs.size() + " sccs");
+//        for (Graph temp : sccs) {
+//            System.out.println("=====");
+//            System.out.println(temp.toString());
+//        }
+//
+////        System.out.println(g.getMinCut());
+//
+//        System.out.println("\n\nREMOVE NODE 8\n");
+//        g.removeVertex(8);
+//        System.out.println("Num Vert" + g.getNumVertices());
+//        System.out.println("Num Edge" + g.getNumEdges());
+//        System.out.println(g.toString());
+//
+//        sccs = g.getSCCs();
+//        System.out.println(sccs.size() + " sccs");
+//        for (Graph temp : sccs) {
+//            System.out.println("=====");
+//            System.out.println(temp.toString());
+//        }
 
-        List<Graph> sccs = g.getSCCs();
-        System.out.println(sccs.size() + " sccs");
-        for (Graph temp : sccs) {
-            System.out.println("=====");
-            System.out.println(temp.toString());
+        String content = null;
+        try {
+            content = new String(Files.readAllBytes(Paths.get("data/med_test_graph")));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        System.out.println("\n\nREMOVE NODE 8\n");
-        g.removeVertex(8);
-        System.out.println("Num Vert" + g.getNumVertices());
-        System.out.println("Num Edge" + g.getNumEdges());
-        System.out.println(g.toString());
-
-        sccs = g.getSCCs();
-        System.out.println(sccs.size() + " sccs");
-        for (Graph temp : sccs) {
-            System.out.println("=====");
-            System.out.println(temp.toString());
-        }
-
+//        Graph mg = new Graph();
+//        Parser.parseTestCode(mg);
+        MinCutGraph mcg = new MinCutGraph(content);
+        mcg.parseGraph();
+        System.out.println("TestFile MinCut: " + mcg.getMinCut());
     }
 }

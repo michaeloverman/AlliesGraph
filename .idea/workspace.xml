@@ -2,11 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="35eaccbe-0b3c-4f1e-b684-9d1f1abe9981" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.~lock.Capstone Written Report.odt#" afterPath="$PROJECT_DIR$/.~lock.Capstone Written Report.odt#" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/small_test_graph" afterPath="$PROJECT_DIR$/data/small_test_graph" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AlliesGraph.java" afterPath="$PROJECT_DIR$/src/AlliesGraph.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/med_test_graph" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/small_test_graph" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/AlliesGraph/GraphVertex.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/GraphVertex.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AlliesGraph/Graph.class" afterPath="$PROJECT_DIR$/out/production/AlliesGraph/Graph.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AlliesGraph/MinCutGraph$Edge.class" afterPath="$PROJECT_DIR$/out/production/AlliesGraph/MinCutGraph$Edge.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AlliesGraph/MinCutGraph$Node.class" afterPath="$PROJECT_DIR$/out/production/AlliesGraph/MinCutGraph$Node.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/AlliesGraph/MinCutGraph.class" afterPath="$PROJECT_DIR$/out/production/AlliesGraph/MinCutGraph.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Graph.java" afterPath="$PROJECT_DIR$/src/Graph.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MinCutGraph.java" afterPath="$PROJECT_DIR$/src/MinCutGraph.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Parser.java" afterPath="$PROJECT_DIR$/src/Parser.java" />
     </list>
     <ignored path="AlliesGraph.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -21,6 +29,26 @@
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
+  <component name="DockManager">
+    <window id="2">
+      <content type="file-editors">
+        <state>
+          <leaf>
+            <file leaf-file-name="Parser.java" pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/src/Parser.java">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="187">
+                    <caret line="15" column="63" selection-start-line="15" selection-start-column="63" selection-end-line="15" selection-end-column="63" />
+                    <folding />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
+  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="AlliesGraph" />
@@ -30,9 +58,11 @@
       <file leaf-file-name="Graph.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Graph.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="62" column="58" selection-start-line="62" selection-start-column="58" selection-end-line="62" selection-end-column="58" />
-              <folding />
+            <state relative-caret-position="511">
+              <caret line="87" column="37" selection-start-line="87" selection-start-column="37" selection-end-line="87" selection-end-column="37" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -71,17 +101,11 @@
       <file leaf-file-name="MinCutGraph.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/MinCutGraph.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-493">
-              <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+            <state relative-caret-position="1511">
+              <caret line="258" column="23" selection-start-line="258" selection-start-column="23" selection-end-line="258" selection-end-column="23" />
               <folding>
-                <element signature="e#796#797#0" expanded="true" />
-                <element signature="e#831#832#0" expanded="true" />
                 <element signature="method#Node#0;class#Node#0;class#MinCutGraph#0" expanded="false" />
-                <element signature="e#6275#6276#0" expanded="true" />
-                <element signature="e#6328#6329#0" expanded="true" />
                 <element signature="method#getNeighbors#0;class#Node#0;class#MinCutGraph#0" expanded="false" />
-                <element signature="e#7805#7806#0" expanded="true" />
-                <element signature="e#7839#7840#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -90,40 +114,8 @@
       <file leaf-file-name="AlliesGraph.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AlliesGraph.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="147" column="82" selection-start-line="147" selection-start-column="82" selection-end-line="147" selection-end-column="82" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Parser.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Parser.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-514">
-              <caret line="43" column="5" selection-start-line="43" selection-start-column="5" selection-end-line="43" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GraphTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/GraphTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="664">
-              <caret line="75" column="17" selection-start-line="75" selection-start-column="17" selection-end-line="75" selection-end-column="17" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="small_test_graph" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/data/small_test_graph">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="115">
-              <caret line="24" column="9" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
+            <state relative-caret-position="1840">
+              <caret line="151" column="0" selection-start-line="151" selection-start-column="0" selection-end-line="151" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -159,13 +151,16 @@
         <option value="$PROJECT_DIR$/data/MIDB_4.01.csv" />
         <option value="$PROJECT_DIR$/src/GraphVertex.java" />
         <option value="$PROJECT_DIR$/data/shortCoW.txt" />
-        <option value="$PROJECT_DIR$/src/Parser.java" />
         <option value="$PROJECT_DIR$/src/GraphTest.java" />
         <option value="$PROJECT_DIR$/src/State.java" />
         <option value="$PROJECT_DIR$/src/Dispute.java" />
-        <option value="$PROJECT_DIR$/data/small_test_graph" />
-        <option value="$PROJECT_DIR$/src/MinCutGraph.java" />
         <option value="$PROJECT_DIR$/src/AlliesGraph.java" />
+        <option value="$PROJECT_DIR$/data/med_test_graph" />
+        <option value="$PROJECT_DIR$/data/kargerMinCut.txt" />
+        <option value="$PROJECT_DIR$/data/small_test_graph" />
+        <option value="$PROJECT_DIR$/src/Parser.java" />
+        <option value="$PROJECT_DIR$/data/small_test_graph.txt" />
+        <option value="$PROJECT_DIR$/src/MinCutGraph.java" />
         <option value="$PROJECT_DIR$/src/Graph.java" />
       </list>
     </option>
@@ -173,7 +168,7 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="66" />
     <option name="y" value="15" />
-    <option name="width" value="1154" />
+    <option name="width" value="1023" />
     <option name="height" value="1004" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -570,10 +565,10 @@
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Application.AlliesGraph" />
-        <item index="1" class="java.lang.String" itemvalue="Application.MinCutGraph" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.GraphTest.getMinCut" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.GraphTest" />
-        <item index="4" class="java.lang.String" itemvalue="Application.Graph" />
+        <item index="1" class="java.lang.String" itemvalue="Application.Graph" />
+        <item index="2" class="java.lang.String" itemvalue="Application.MinCutGraph" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.GraphTest.getMinCut" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.GraphTest" />
       </list>
     </recent_temporary>
   </component>
@@ -626,8 +621,8 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="66" y="15" width="1154" height="1004" extended-state="0" />
-    <editor active="false" />
+    <frame x="66" y="15" width="1023" height="1004" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -637,10 +632,10 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295063" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4270953" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="1.0" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295063" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14990859" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17030114" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -653,6 +648,9 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295063" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
     </layout>
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.gitignore" />
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -667,7 +665,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="12" />
+      <option name="time" value="13" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -676,39 +674,11 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Edge.java" />
-    <entry file="file://$PROJECT_DIR$/src/Node.java" />
-    <entry file="file://$PROJECT_DIR$/data/small_test_graph">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="33" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Dispute.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="6" column="2" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/GraphVertex.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding>
-            <element signature="e#352#353#0" expanded="false" />
-            <element signature="e#385#386#0" expanded="false" />
-            <element signature="e#428#429#0" expanded="false" />
-            <element signature="e#470#471#0" expanded="false" />
-            <element signature="e#508#509#0" expanded="false" />
-            <element signature="e#553#554#0" expanded="false" />
-            <element signature="e#579#580#0" expanded="false" />
-            <element signature="e#604#605#0" expanded="false" />
-            <element signature="e#695#704#0" expanded="false" />
-            <element signature="e#899#908#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -734,7 +704,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2074">
           <caret line="177" column="52" selection-start-line="177" selection-start-column="52" selection-end-line="177" selection-end-column="52" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -751,14 +723,8 @@
         <state relative-caret-position="1700">
           <caret line="106" column="28" selection-start-line="106" selection-start-column="28" selection-end-line="106" selection-end-column="28" />
           <folding>
-            <element signature="e#796#797#0" expanded="true" />
-            <element signature="e#831#832#0" expanded="true" />
             <element signature="method#Node#0;class#Node#0;class#MinCutGraph#0" expanded="false" />
-            <element signature="e#6275#6276#0" expanded="true" />
-            <element signature="e#6328#6329#0" expanded="true" />
             <element signature="method#getNeighbors#0;class#Node#0;class#MinCutGraph#0" expanded="false" />
-            <element signature="e#7805#7806#0" expanded="true" />
-            <element signature="e#7839#7840#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -822,14 +788,8 @@
         <state relative-caret-position="289">
           <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
           <folding>
-            <element signature="e#796#797#0" expanded="true" />
-            <element signature="e#831#832#0" expanded="true" />
             <element signature="method#Node#0;class#Node#0;class#MinCutGraph#0" expanded="false" />
-            <element signature="e#6275#6276#0" expanded="true" />
-            <element signature="e#6328#6329#0" expanded="true" />
             <element signature="method#getNeighbors#0;class#Node#0;class#MinCutGraph#0" expanded="false" />
-            <element signature="e#7805#7806#0" expanded="true" />
-            <element signature="e#7839#7840#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -872,7 +832,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1018,25 +980,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/GraphVertex.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding>
-            <element signature="e#352#353#0" expanded="false" />
-            <element signature="e#385#386#0" expanded="false" />
-            <element signature="e#428#429#0" expanded="false" />
-            <element signature="e#470#471#0" expanded="false" />
-            <element signature="e#508#509#0" expanded="false" />
-            <element signature="e#553#554#0" expanded="false" />
-            <element signature="e#579#580#0" expanded="false" />
-            <element signature="e#604#605#0" expanded="false" />
-            <element signature="e#695#704#0" expanded="false" />
-            <element signature="e#899#908#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data/MIDA_4.01.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1090,52 +1033,88 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Parser.java">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-514">
-          <caret line="43" column="5" selection-start-line="43" selection-start-column="5" selection-end-line="43" selection-end-column="5" />
+        <state relative-caret-position="0">
+          <caret line="0" column="5" selection-start-line="0" selection-start-column="5" selection-end-line="0" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/kargerMinCut.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="427">
+          <caret line="200" column="0" selection-start-line="200" selection-start-column="0" selection-end-line="200" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GraphVertex.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/data/small_test_graph">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="24" column="9" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
+        <state relative-caret-position="136">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MinCutGraph.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-493">
-          <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+        <state relative-caret-position="1511">
+          <caret line="258" column="23" selection-start-line="258" selection-start-column="23" selection-end-line="258" selection-end-column="23" />
           <folding>
-            <element signature="e#796#797#0" expanded="true" />
-            <element signature="e#831#832#0" expanded="true" />
             <element signature="method#Node#0;class#Node#0;class#MinCutGraph#0" expanded="false" />
-            <element signature="e#6275#6276#0" expanded="true" />
-            <element signature="e#6328#6329#0" expanded="true" />
             <element signature="method#getNeighbors#0;class#Node#0;class#MinCutGraph#0" expanded="false" />
-            <element signature="e#7805#7806#0" expanded="true" />
-            <element signature="e#7839#7840#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Parser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="15" column="63" selection-start-line="15" selection-start-column="63" selection-end-line="15" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/small_test_graph.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="697">
+          <caret line="41" column="3" selection-start-line="41" selection-start-column="3" selection-end-line="41" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/med_test_graph">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="316">
+          <caret line="54" column="46" selection-start-line="0" selection-start-column="0" selection-end-line="79" selection-end-column="211" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AlliesGraph.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="147" column="82" selection-start-line="147" selection-start-column="82" selection-end-line="147" selection-end-column="82" />
+        <state relative-caret-position="1840">
+          <caret line="151" column="0" selection-start-line="151" selection-start-column="0" selection-end-line="151" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Graph.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="62" column="58" selection-start-line="62" selection-start-column="58" selection-end-line="62" selection-end-column="58" />
-          <folding />
+        <state relative-caret-position="511">
+          <caret line="87" column="37" selection-start-line="87" selection-start-column="37" selection-end-line="87" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -11,11 +11,13 @@ public class MinCutGraph {
     Map<Integer, Node> nodes;
     List<Edge> edges;
     private String graphString;
+    static Random rand = new Random();
 
     public MinCutGraph() {
         nodes = new HashMap<>();
         edges = new ArrayList<>();
         graphString = "";
+//        rand =
     }
     public MinCutGraph(String gs) {
         this();
@@ -33,19 +35,63 @@ public class MinCutGraph {
         Random rand = new Random(); // use same seed for initial testing NO NOT HERE ANYWAY!
         int nix = rand.nextInt(edges.size());
         return contractEdge(edges.get(nix));
-
+        // ABOVE HERE ORIGINAL
+        // BELOW HERE - ATTEMPT TO REWORK TO FIND WHATEVER THE BUG IS
+                // didn't work... other problems... or the same problem another way...
+//        Node tailToNix = getRandomNode(nodes);
+//        int whichHead = rand.nextInt(tailToNix.getNeighbors().size());
+//        Node headToNix = nodes.get(tailToNix.getNeighbors().get(whichHead));
+//        if (tailToNix == null || headToNix == null)
+//            nullNode(headToNix, tailToNix);
+//        redirectTails(headToNix, tailToNix);
+//        tailToNix.consumeNode(headToNix);
+//        nodes.remove(headToNix);
+//        generateEdges();
+//        return tailToNix.getId() + "-->" + headToNix.getId();
     }
+//    private Node getRandomNode(Map<Integer, Node> set) {
+//        int size = set.size();
+//        int item = rand.nextInt(size);
+//        int i = 0;
+//        for (Node n : set.values()) {
+//            if (i == item)
+//                return n;
+//            i++;
+//        }
+//        return null;
+//    }
     public String contractEdge(Edge e) {
         String string = e.toString();
         Node t = nodes.get(e.getTail());
         Node h = nodes.get(e.getHead());
+        if (t == null || h == null) {
+            nullNode(e);
+        }
         redirectTails(h, t);
         t.consumeNode(h);
         nodes.remove(h.getId());
         generateEdges();
         return string;
     }
-
+    private void nullNode(Node a, Node b) {
+        System.out.print("Null Node Found: ");
+        if (a == null)
+            System.out.println("head # ??");
+        if (b == null)
+            System.out.println("tail # ??");
+    }
+    private void nullNode(Edge e) {
+        System.out.println("Null Node Found: " + e.toString());
+        if (nodes.get(e.getHead()) == null) {
+            System.out.println("Head: " + e.getHead() + " is null");
+        } else if (nodes.get(e.getTail()) == null) {
+            System.out.println("Tail: " + e.getTail() + " is null");
+        }
+        System.out.println("=======================" + nodeSize() + " NODES=======================");
+        for(Node n : nodes.values()) {
+            System.out.println(n.toString());
+        }
+    }
     /**
      * after contracting an edge and redirecting tails, it is easier to recreate the List of edges,
      * rather than dealing with the List of Edges directly.
@@ -63,8 +109,21 @@ public class MinCutGraph {
         }
     }
     private void redirectTails(Node h, Node t) {
+//        System.out.println("Head: " + h.getId() + " Tail: " + t.getId());
+//        if (h == null) {
+//            System.out.println("  Error: Head Node Null");
+//        }
+//        if (t == null) {
+//            System.out.println("  Error: Tail Node Null");
+//        }
         for(int n : h.getNeighbors()) {
-            nodes.get(n).resetEdge(h, t);
+            try {
+                nodes.get(n).resetEdge(h, t);
+            } catch (NullPointerException npe) {
+                System.out.println("Got that ol' NullPointerException again...");
+                System.out.println("    Getting Node: " + n + " Resetting Head: " + h.getId() + " Tail: " + t.getId());
+//                npe.printStackTrace();
+            }
         }
     }
     public void addEdge(Edge newEdge) {
@@ -123,8 +182,10 @@ public class MinCutGraph {
 
             Node newNode = new Node(Integer.parseInt(pieces[0]));
             for (int i = 1; i < pieces.length; i++) {
-                newNode.addNeighbor(Integer.parseInt(pieces[i]));
-                addEdge(newNode.getId(), Integer.parseInt(pieces[i]));
+                if(pieces[0] != pieces[i]) {
+                    newNode.addNeighbor(Integer.parseInt(pieces[i]));
+                    addEdge(newNode.getId(), Integer.parseInt(pieces[i]));
+                }
             }
 //            System.out.println("Adding newNode to graph...");
             nodes.put(Integer.parseInt(pieces[0]), newNode);
@@ -149,11 +210,13 @@ public class MinCutGraph {
 //        return node.toString();
 //    }
     public int getMinCut() {
+        System.out.print("Running getMinCut()...");
         int minimum = Integer.MAX_VALUE;
 //        System.out.println("Nodes: " + nodes.size());
 //        System.out.println("log of N: " + Math.log(nodes.size()));
         int numRuns = (int) (nodes.size() * nodeSize() * Math.log(nodes.size()));
         for (int i = 0; i < numRuns; i++) {
+            if(i % 253 == 0) System.out.print(".");
             MinCutGraph mc = new MinCutGraph(graphString);
             mc.parseGraph();
             while (mc.nodeSize() > 2) {
@@ -163,7 +226,7 @@ public class MinCutGraph {
             int min = mc.edgeSize() / 2;
             minimum = min < minimum ? min : minimum;
         }
-        System.out.println("--MinCutGraph: getMinCut() run " + numRuns + " times; MinCut: " + minimum);
+        System.out.println("\n--MinCutGraph: getMinCut() run " + numRuns + " times; MinCut: " + minimum);
         return minimum;
     }
 
@@ -191,7 +254,10 @@ public class MinCutGraph {
             neighbors.remove((Integer) n);
         }
         public void resetEdge(Node h, Node t) {
-            if(!neighbors.contains(h.getId())) System.out.println("Neighbors doesn't contain node: " + h.getId());
+            if(!neighbors.contains(h.getId())) {
+                System.out.println("Neighbors doesn't contain node: " + h.getId());
+                return;
+            }
             int head = h.getId();
             if (head != t.getId()) {
                 neighbors.set(neighbors.indexOf(head), t.getId());
