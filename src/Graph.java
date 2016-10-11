@@ -201,7 +201,7 @@ public class Graph {
     }
 
     /**
-     * main method, used primarily for testing/debugging purposes
+     * main method, used for testing/debugging purposes
      * @param args
      */
     public static void main(String[] args) {

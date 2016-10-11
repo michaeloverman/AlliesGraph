@@ -110,18 +110,6 @@ public class AlliesGraph extends Graph {
             s.setSccChange(sccs.size() - 1);
         }
     }
-//    public void egonetsBySize() {
-//        egonetsBySize(Math.max(1000, states.size()));
-//    }
-//    public void egonetsBySize(int howMany) {
-//        if (stateEgonets == null) return;
-//        PriorityQueue<State> tempStates = new PriorityQueue<>(Math.min(howMany, states.size()));
-//        tempStates.addAll(states.values());
-//        while (!tempStates.isEmpty()) {
-//
-//            System.out.println(tempStates.remove().egonetToString());
-//        }
-//    }
 
     /**
      * Create a list of States ordered by size of SCC change from full egonet to egonet minus ego.
@@ -136,18 +124,9 @@ public class AlliesGraph extends Graph {
 
         return queue.subList(0, howMany);
     }
+
     public List<State> statesBySccChange() {
         return statesBySccChange(Math.max(1000, states.size()));
-    }
-//    public HashMap<Integer, HashSet<Integer>> exportGraph() {
-//        HashMap<Integer, HashSet<Integer>> hash = new HashMap<>();
-//        for (Integer i : states.keySet()) {
-//            hash.put(i, states.get(i).getAllies());
-//        }
-//        return hash;
-//    }
-    public void findMinCutSizes() {
-        findMinCutSizes(15);  // set minimum size of egonet/number of Allies for practical use of data
     }
 
     /**
@@ -158,13 +137,17 @@ public class AlliesGraph extends Graph {
     public void findMinCutSizes(int minimumAllies) {
         for (State s : states.values()) {
             if (s.getEgonetSize() < minimumAllies) continue;
-            System.out.println("MinCutting " + s.getName());
-            System.out.println(stateEgonets.get(s.getCode()).graphToMinCutString());
+//            System.out.println("MinCutting " + s.getName());
+//            System.out.println(stateEgonets.get(s.getCode()).graphToMinCutString());
             MinCutGraph mcg = new MinCutGraph(stateEgonets.get(s.getCode()).graphToMinCutString());
             mcg.parseGraph();
             s.setHasMinCut(true);
             s.setMinCutSize(mcg.getMinCut());
         }
+    }
+
+    public void findMinCutSizes() {
+        findMinCutSizes(15);  // set minimum size of egonet/number of Allies for practical use of data
     }
 
     /**
@@ -180,6 +163,28 @@ public class AlliesGraph extends Graph {
 
         return queue;
     }
+
+    /**
+     * Returns a list of states ordered by GrandMeasureOfConnectedness
+     * @return
+     */
+    public List<State> statesByGrandMeasure() {
+        ArrayList<State> queue = new ArrayList<>();
+        for (State s : states.values()) {
+            if(s.getHasMinCut()) queue.add(s);
+        }
+        Collections.sort(queue, State.StatesByGrandMeasureComparator);
+        return queue;
+    }
+
+    /**
+     * The main() method here controls everything:
+     *      parses data
+     *      organizes it into form workable by the graph structure I created
+     *      calls necessary methods to get the 'new' derived info
+     *      and print that new info a readable format
+     * @param args
+     */
     public static void main(String[] args) {
         AlliesGraph graph = new AlliesGraph();
         Parser.parseStateCodes(graph);
@@ -207,44 +212,22 @@ public class AlliesGraph extends Graph {
 
         System.out.println("Finding MinCuts:");
         graph.findMinCutSizes(25);
-        List<State> newestList = graph.statesByMinCutChange();
+        List<State> newestList = graph.statesByGrandMeasure();
         for (State s : newestList) {
-//            Graph testEgo = graph.stateEgonets.get(VERTEXTOTEST);
-//            List<Graph> templist = testEgo.getSCCs();
-//            int presize = templist.size();
-//            System.out.println(templist.size() + " SCCs for " + graph.states.get(VERTEXTOTEST).getName());
-//        for (Graph g : testList) {
-//            System.out.println("=====");
-//            System.out.println(g.toString());
-//        }
 
-//        System.out.println(testEgo.toString());
-//            testEgo.removeVertex(VERTEXTOTEST);
-//        System.out.println(testEgo.toString());
-
-//            templist = testEgo.getSCCs();
-//            int postsize = templist.size();
-//            System.out.println(templist.size() + " SCCs after removing ego: " + graph.states.get(VERTEXTOTEST).getName());
-//        for (Graph g : testEgo.getSCCs()) {
-//            System.out.println("=====");
-//            System.out.println(g.toString());
-//        }
-//            State s = states.get(VERTEXTOTEST);
 
             StringBuffer sb = new StringBuffer();
             sb.append(s.getName());
             sb.append("\n Number of Allies: ");
             sb.append(s.getEgonetSize());
-            sb.append("\n SCC size Change: ");
-            sb.append(s.getSccChange());
+//            sb.append("\n SCC size Change: ");
+//            sb.append(s.getSccChange());
             sb.append("\n SCC size Change Per Ally: ");
             sb.append(String.format("%.04f", s.getSccChangePerAlly()));
-            sb.append("\n Min Cut Size: ").append(s.getMinCutSize());
+//            sb.append("\n Min Cut Size: ").append(s.getMinCutSize());
             sb.append("\n Min Cut Per Ally: ").append(String.format("%.04f", s.getMinCutSizePerAlly()));
-            sb.append("\n");
+            sb.append("\n Grand Measure of Connectedness: ").append(String.format("%.04f", s.getGrandMeasureOfConnectedness()));
             System.out.println(sb.toString());
-
         }
-
     }
 }

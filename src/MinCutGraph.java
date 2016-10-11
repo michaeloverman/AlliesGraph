@@ -32,11 +32,53 @@ public class MinCutGraph {
         return edges.size();
     }
 
+    public void addEdge(Edge newEdge) {
+        if (!edges.contains(newEdge)) edges.add(newEdge);
+    }
+
+    public void addEdge(int tail, int head) {
+        if(!nodes.containsKey(tail)) nodes.put(tail, new Node(tail));
+        if(!nodes.containsKey(head)) nodes.put(head, new Node(head));
+        Edge edge = new Edge(tail, head);
+        addEdge(edge);
+    }
+
+    /**
+     * Primary method of interest for the class: manages sequence of events to determine MinCut, including
+     * running a sufficient number of times to all but guarantee successful determination.
+     * @return
+     */
+    public int getMinCut() {
+//        System.out.print("Running getMinCut()...");
+        int minimum = Integer.MAX_VALUE;
+        int numRuns = (int) (nodes.size() * nodeSize() * Math.log(nodes.size()));
+        for (int i = 0; i < numRuns; i++) {
+//            if(i % 253 == 0) System.out.print(".");
+            MinCutGraph mc = new MinCutGraph(graphString);
+            mc.parseGraph();
+            while (mc.nodeSize() > 2) {
+                mc.contractRandomEdge();
+            }
+            int min = mc.edgeSize() / 2;
+            minimum = min < minimum ? min : minimum;
+        }
+//        System.out.println("\n--MinCutGraph: getMinCut() run " + numRuns + " times; MinCut: " + minimum);
+        return minimum;
+    }
+
+    /**
+     * Selects an edge at random to contract.
+     */
     public void contractRandomEdge() {
         int nix = rand.nextInt(edges.size());
         contractEdge(edges.get(nix));
     }
 
+    /**
+     * After randomly selecting an edge, it is 'contracted' - the two nodes between that edge become
+     * one, and all other edges are maintained or rerouted accordingly. Self loops are eliminated.
+     * @param e edge to contract
+     */
     public void contractEdge(Edge e) {
         Node t = nodes.get(e.getTail());
         Node h = nodes.get(e.getHead());
@@ -49,37 +91,6 @@ public class MinCutGraph {
         generateEdges();
     }
 
-    /**
-     * a utility method for debugging and testing purposes. Should NOT be called, unless data is not
-     * properly formed
-     * @param a node involved in problematic edge
-     * @param b node involved in problematic edge
-     */
-    private void nullNode(Node a, Node b) {
-        System.out.print("Null Node Found: ");
-        if (a == null)
-            System.out.println("head # ??");
-        if (b == null)
-            System.out.println("tail # ??");
-    }
-
-    /**
-     * a utility method for debugging and testing purposes. Should NOT be called, unless data is not
-     * properly formed
-     * @param e problematic edge
-     */
-    private void nullNode(Edge e) {
-        System.out.println("Null Node Found: " + e.toString());
-        if (nodes.get(e.getHead()) == null) {
-            System.out.println("Head: " + e.getHead() + " is null");
-        } else if (nodes.get(e.getTail()) == null) {
-            System.out.println("Tail: " + e.getTail() + " is null");
-        }
-        System.out.println("=======================" + nodeSize() + " NODES=======================");
-        for(Node n : nodes.values()) {
-            System.out.println(n.toString());
-        }
-    }
     /**
      * after contracting an edge and redirecting tails, it is easier to recreate the List of edges,
      * rather than dealing with the List of Edges directly.
@@ -97,49 +108,20 @@ public class MinCutGraph {
         }
     }
 
+    /**
+     * method to 'fix' the beginnings of edges, so they connect to the proper 'new' node, after
+     * it consumes the old.
+     * @param h old node, to be consumed
+     * @param t new node, to redirect edges
+     */
     private void redirectTails(Node h, Node t) {
-
         for(int n : h.getNeighbors()) {
             try {
                 nodes.get(n).resetEdge(h, t);
             } catch (NullPointerException npe) {
-//                System.out.println("Got that ol' NullPointerException again...");
-//                System.out.println("    Getting Node: " + n + " Resetting Head: " + h.getId() + " Tail: " + t.getId());
                 npe.printStackTrace();
             }
         }
-    }
-
-    public void addEdge(Edge newEdge) {
-        if (!edges.contains(newEdge)) edges.add(newEdge);
-    }
-
-    public void addEdge(int tail, int head) {
-        if(!nodes.containsKey(tail)) nodes.put(tail, new Node(tail));
-        if(!nodes.containsKey(head)) nodes.put(head, new Node(head));
-        Edge edge = new Edge(tail, head);
-        addEdge(edge);
-    }
-
-    public int getMinCut() {
-        System.out.print("Running getMinCut()...");
-        int minimum = Integer.MAX_VALUE;
-//        System.out.println("Nodes: " + nodes.size());
-//        System.out.println("log of N: " + Math.log(nodes.size()));
-        int numRuns = (int) (nodes.size() * nodeSize() * Math.log(nodes.size()));
-        for (int i = 0; i < numRuns; i++) {
-            if(i % 253 == 0) System.out.print(".");
-            MinCutGraph mc = new MinCutGraph(graphString);
-            mc.parseGraph();
-            while (mc.nodeSize() > 2) {
-                mc.contractRandomEdge();
-//                System.out.println(this.toString());
-            }
-            int min = mc.edgeSize() / 2;
-            minimum = min < minimum ? min : minimum;
-        }
-        System.out.println("\n--MinCutGraph: getMinCut() run " + numRuns + " times; MinCut: " + minimum);
-        return minimum;
     }
 
     /**
@@ -267,6 +249,38 @@ public class MinCutGraph {
 
     public String toString() {
         return graphString;
+    }
+
+    /**
+     * a utility method for debugging and testing purposes. Should NOT be called, unless data is not
+     * properly formed
+     * @param a node involved in problematic edge
+     * @param b node involved in problematic edge
+     */
+    private void nullNode(Node a, Node b) {
+        System.out.print("Null Node Found: ");
+        if (a == null)
+            System.out.println("head # ??");
+        if (b == null)
+            System.out.println("tail # ??");
+    }
+
+    /**
+     * a utility method for debugging and testing purposes. Should NOT be called, unless data is not
+     * properly formed
+     * @param e problematic edge
+     */
+    private void nullNode(Edge e) {
+        System.out.println("Null Node Found: " + e.toString());
+        if (nodes.get(e.getHead()) == null) {
+            System.out.println("Head: " + e.getHead() + " is null");
+        } else if (nodes.get(e.getTail()) == null) {
+            System.out.println("Tail: " + e.getTail() + " is null");
+        }
+        System.out.println("=======================" + nodeSize() + " NODES=======================");
+        for(Node n : nodes.values()) {
+            System.out.println(n.toString());
+        }
     }
 
     /**
