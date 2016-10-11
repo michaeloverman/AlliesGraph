@@ -4,6 +4,7 @@ import java.util.*;
  * The State class is essentially the data structure which holds all relevante information for each
  * node in the larger graph. Some of the data is data from the original datasource, but other pieces
  * are details calculated in this AlliesGraph, such as: egonetSize, sccSizeChange, minCutSize, etc.
+ * Methods are descriptively named.
  */
 public class State implements Comparable {
     private String name;
@@ -17,8 +18,8 @@ public class State implements Comparable {
     private int sccSizeChange;
     private double sccChangePerAlly;
     private int minCutSize;
-    private int minCutSizeChange;
-    private double minCutChangePerAlly;
+//    private int minCutSizeChange;
+    private double minCutSizePerAlly;
     private boolean hasMinCut; // a simple 'tally' of whether the time-consuming min-cut operation has been completed
 
     public State(String abbrev, int code, String name) {
@@ -37,24 +38,22 @@ public class State implements Comparable {
     public int getMinCutSize() {
         return minCutSize;
     }
+
     public void setMinCutSize(int minCutSize) {
         this.minCutSize = minCutSize;
+        minCutSizePerAlly = (double) minCutSize / egonetSize;
     }
+
     public void setHasMinCut(boolean hmc) {
         this.hasMinCut = hmc;
     }
+
     public boolean getHasMinCut() {
         return hasMinCut;
     }
-    public int getMinCutSizeChange() {
-        return minCutSizeChange;
-    }
-    public void setMinCutSizeChange(int minCutSizeChange) {
-        this.minCutSizeChange = minCutSizeChange;
-        minCutChangePerAlly = (double) minCutSizeChange / egonetSize;
-    }
-    public double getMinCutChangePerAlly() {
-        return minCutChangePerAlly;
+
+    public double getMinCutSizePerAlly() {
+        return minCutSizePerAlly;
     }
 
     public int getEgonetSize() {
@@ -69,14 +68,15 @@ public class State implements Comparable {
         sccSizeChange = i;
         sccChangePerAlly = (double) sccSizeChange / egonetSize;
     }
+
     public int getSccChange() {
         return sccSizeChange;
     }
 
     public double getSccChangePerAlly() {
         return sccChangePerAlly;
-
     }
+
     public String getName() {
         return name;
     }
@@ -92,13 +92,15 @@ public class State implements Comparable {
     public String toString() {
         return "Name: " + name + ", Abbr: " + abbrev + ", Code: " + code;
     }
-    public String alliesToString() {
-        StringBuffer sb = new StringBuffer();
-        for (int i : allies.keySet()) {
-            sb.append(code + ";" + i + ";" + allies.get(i) + "\n");
-        }
-        return sb.toString();
-    }
+
+//    public String alliesToString() {
+//        StringBuffer sb = new StringBuffer();
+//        for (int i : allies.keySet()) {
+//            sb.append(code + ";" + i + ";" + allies.get(i) + "\n");
+//        }
+//        return sb.toString();
+//    }
+
     public void addAlly(int ally) {
         if (allies.containsKey(ally)) {
             int current = allies.get(ally);
@@ -107,13 +109,14 @@ public class State implements Comparable {
             allies.put(ally, 1);
         }
     }
-    public HashSet<Integer> getAllies() {
-        HashSet<Integer> list = new HashSet<>();
-        for (int i : allies.keySet()) {
-            list.add(i);
-        }
-        return list;
-    }
+
+//    public HashSet<Integer> getAllies() {
+//        HashSet<Integer> list = new HashSet<>();
+//        for (int i : allies.keySet()) {
+//            list.add(i);
+//        }
+//        return list;
+//    }
 
     /**
      * compareTo override, sorts States by egonet size
@@ -139,19 +142,17 @@ public class State implements Comparable {
             return 0;
         }
     };
+
     /**
-     * Comparator to sort states by minCut
+     * Comparator to sort states by minCutSize
      */
     public static Comparator<State> StatesByMinCutComparator = new Comparator<State>() {
         @Override
         public int compare(State o1, State o2) {
-            if (o1.minCutChangePerAlly > o2.minCutChangePerAlly) return -1;
-            if (o2.minCutChangePerAlly > o1.minCutChangePerAlly) return 1;
+            if (o1.minCutSizePerAlly > o2.minCutSizePerAlly) return -1;
+            if (o2.minCutSizePerAlly > o1.minCutSizePerAlly) return 1;
             return 0;
         }
     };
-    public String egonetToString() {
-        return name + ": " + egonetSize;
-    }
 
 }

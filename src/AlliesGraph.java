@@ -1,7 +1,9 @@
 import java.util.*;
 
 /**
- * Created by Michael on 9/16/2016.
+ * Overriding 'control' class for the project. Specialized version of the more generic Graph class,
+ * this holds specific details of the data in question: States (nodes), Disputes (edges), and the
+ * derived information from that data: Egonets, SCCs, etc.
  */
 public class AlliesGraph extends Graph {
     private static HashMap<Integer, State> states;
@@ -18,14 +20,16 @@ public class AlliesGraph extends Graph {
         abbrevs = new HashMap<>();
         removedStateEgonets = new HashMap<>();
         removedEgoSCCs = new HashMap<>();
-
     }
+
     public void addDispute(Dispute disp) {
         disputes.put(disp.getId(), disp);
     }
+
     public Dispute getDispute(int id) {
         return disputes.get(id);
     }
+
     public boolean containsDispute(int id) {
         return disputes.containsKey(id);
     }
@@ -42,8 +46,11 @@ public class AlliesGraph extends Graph {
         return states.size();
     }
 
-
+    /**
+     * organizational method, takes the details of a particular dispute and translates into graph edges
+     */
     public void disputesToEdges() {
+        // create edges between allies on Side A of the dispute
         for (Dispute d : disputes.values()) {
             if (d.sideA().size() > 1) {
                 for (int i = 0; i < d.sideA().size() - 1; i++) {
@@ -64,6 +71,7 @@ public class AlliesGraph extends Graph {
                     }
                 }
             }
+            // create edges between allies on Side B of the dispute
             if (d.sideB().size() > 1) {
                 for (int i = 0; i < d.sideB().size() - 1; i++) {
                     for (int j = i + 1; j < d.sideB().size(); j++) {
@@ -82,6 +90,10 @@ public class AlliesGraph extends Graph {
         }
     }
 
+    /**
+     * findAlliesAndEgonets() generates the egonet for each State in the graph, and a second 'egonet'
+     * which has the 'ego' removed. It generates/counts SCCs for that second egonet.
+     */
     private void findAlliesAndEgonets() {
         stateEgonets = new HashMap<>();
         for (State s : states.values()) {
@@ -98,19 +110,24 @@ public class AlliesGraph extends Graph {
             s.setSccChange(sccs.size() - 1);
         }
     }
-    public void egonetsBySize() {
-        egonetsBySize(Math.max(1000, states.size()));
-    }
-    public void egonetsBySize(int howMany) {
-        if (stateEgonets == null) return;
-        PriorityQueue<State> tempStates = new PriorityQueue<>(Math.min(howMany, states.size()));
-        tempStates.addAll(states.values());
-        while (!tempStates.isEmpty()) {
+//    public void egonetsBySize() {
+//        egonetsBySize(Math.max(1000, states.size()));
+//    }
+//    public void egonetsBySize(int howMany) {
+//        if (stateEgonets == null) return;
+//        PriorityQueue<State> tempStates = new PriorityQueue<>(Math.min(howMany, states.size()));
+//        tempStates.addAll(states.values());
+//        while (!tempStates.isEmpty()) {
+//
+//            System.out.println(tempStates.remove().egonetToString());
+//        }
+//    }
 
-            System.out.println(tempStates.remove().egonetToString());
-        }
-    }
-
+    /**
+     * Create a list of States ordered by size of SCC change from full egonet to egonet minus ego.
+     * @param howMany takes an int, if you only want the top howMany States
+     * @return
+     */
     public List<State> statesBySccChange(int howMany) {
         howMany = Math.min(howMany, states.size());
         ArrayList<State> queue = new ArrayList<>(howMany);
@@ -119,28 +136,25 @@ public class AlliesGraph extends Graph {
 
         return queue.subList(0, howMany);
     }
-    public List<State> statesByMinCutChange() {
-        ArrayList<State> queue = new ArrayList<>();
-        for (State s : states.values()) {
-            if(s.getHasMinCut()) queue.add(s);
-        }
-        Collections.sort(queue, State.StatesByMinCutComparator);
-
-        return queue;
-    }
     public List<State> statesBySccChange() {
         return statesBySccChange(Math.max(1000, states.size()));
     }
-    public HashMap<Integer, HashSet<Integer>> exportGraph() {
-        HashMap<Integer, HashSet<Integer>> hash = new HashMap<>();
-        for (Integer i : states.keySet()) {
-            hash.put(i, states.get(i).getAllies());
-        }
-        return hash;
-    }
+//    public HashMap<Integer, HashSet<Integer>> exportGraph() {
+//        HashMap<Integer, HashSet<Integer>> hash = new HashMap<>();
+//        for (Integer i : states.keySet()) {
+//            hash.put(i, states.get(i).getAllies());
+//        }
+//        return hash;
+//    }
     public void findMinCutSizes() {
         findMinCutSizes(15);  // set minimum size of egonet/number of Allies for practical use of data
     }
+
+    /**
+     * findMinCutSizes() take an int as the smallest sized state egonet worth parsing for MinCutSize. Creates
+     * a MinCutGraph, and finds the Minimum Cut of the egonet.
+     * @param minimumAllies
+     */
     public void findMinCutSizes(int minimumAllies) {
         for (State s : states.values()) {
             if (s.getEgonetSize() < minimumAllies) continue;
@@ -151,6 +165,20 @@ public class AlliesGraph extends Graph {
             s.setHasMinCut(true);
             s.setMinCutSize(mcg.getMinCut());
         }
+    }
+
+    /**
+     * Returns a list of states ordered by size of minCut.
+     * @return
+     */
+    public List<State> statesByMinCutChange() {
+        ArrayList<State> queue = new ArrayList<>();
+        for (State s : states.values()) {
+            if(s.getHasMinCut()) queue.add(s);
+        }
+        Collections.sort(queue, State.StatesByMinCutComparator);
+
+        return queue;
     }
     public static void main(String[] args) {
         AlliesGraph graph = new AlliesGraph();
@@ -211,8 +239,8 @@ public class AlliesGraph extends Graph {
             sb.append(s.getSccChange());
             sb.append("\n SCC size Change Per Ally: ");
             sb.append(String.format("%.04f", s.getSccChangePerAlly()));
-            sb.append("\n Min Cut Size Change: ").append(s.getMinCutSizeChange());
-            sb.append("\n Min Cut Change Per Ally: ").append(s.getMinCutChangePerAlly());
+            sb.append("\n Min Cut Size: ").append(s.getMinCutSize());
+            sb.append("\n Min Cut Per Ally: ").append(String.format("%.04f", s.getMinCutSizePerAlly()));
             sb.append("\n");
             System.out.println(sb.toString());
 
