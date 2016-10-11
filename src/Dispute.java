@@ -30,19 +30,23 @@ public class Dispute {
             default:
         }
     }
+
     public int getId() {
         return id;
     }
+
     public List<String> sideA() {
         List<String> list = new ArrayList<>();
         list.addAll(sideA);
         return list;
     }
+
     public List<String> sideB() {
         List<String> list = new ArrayList<>();
         list.addAll(sideB);
         return list;
     }
+
     public String toString() {
         StringBuffer sb = new StringBuffer();
         sb.append("Dispute #" + id + "\n  Side A: ");

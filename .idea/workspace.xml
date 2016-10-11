@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="35eaccbe-0b3c-4f1e-b684-9d1f1abe9981" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AlliesGraph.java" afterPath="$PROJECT_DIR$/src/AlliesGraph.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/State.java" afterPath="$PROJECT_DIR$/src/State.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Dispute.java" afterPath="$PROJECT_DIR$/src/Dispute.java" />
     </list>
     <ignored path="AlliesGraph.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -60,17 +60,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Dispute.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Dispute.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Dispute.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="30" column="9" selection-start-line="30" selection-start-column="9" selection-end-line="30" selection-end-column="9" />
+            <state relative-caret-position="782">
+              <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="State.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="State.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/State.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="2397">
@@ -107,8 +107,8 @@
       <file leaf-file-name="AlliesGraph.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AlliesGraph.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="591">
-              <caret line="242" column="103" selection-start-line="242" selection-start-column="103" selection-end-line="242" selection-end-column="103" />
+            <state relative-caret-position="510">
+              <caret line="30" column="5" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
               <folding>
                 <element signature="e#943#944#0" expanded="true" />
                 <element signature="e#991#992#0" expanded="true" />
@@ -156,7 +156,6 @@
         <option value="$PROJECT_DIR$/src/GraphVertex.java" />
         <option value="$PROJECT_DIR$/data/shortCoW.txt" />
         <option value="$PROJECT_DIR$/src/GraphTest.java" />
-        <option value="$PROJECT_DIR$/src/Dispute.java" />
         <option value="$PROJECT_DIR$/data/med_test_graph" />
         <option value="$PROJECT_DIR$/data/kargerMinCut.txt" />
         <option value="$PROJECT_DIR$/data/small_test_graph" />
@@ -166,6 +165,7 @@
         <option value="$PROJECT_DIR$/src/Graph.java" />
         <option value="$PROJECT_DIR$/src/AlliesGraph.java" />
         <option value="$PROJECT_DIR$/src/State.java" />
+        <option value="$PROJECT_DIR$/src/Dispute.java" />
       </list>
     </option>
   </component>
@@ -1062,14 +1062,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Dispute.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="30" column="9" selection-start-line="30" selection-start-column="9" selection-end-line="30" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1151,25 +1143,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AlliesGraph.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="591">
-          <caret line="242" column="103" selection-start-line="242" selection-start-column="103" selection-end-line="242" selection-end-column="103" />
-          <folding>
-            <element signature="e#943#944#0" expanded="true" />
-            <element signature="e#991#992#0" expanded="true" />
-            <element signature="e#1032#1033#0" expanded="true" />
-            <element signature="e#1071#1072#0" expanded="true" />
-            <element signature="e#1117#1118#0" expanded="true" />
-            <element signature="e#1164#1165#0" expanded="true" />
-            <element signature="e#1463#1464#0" expanded="true" />
-            <element signature="e#1499#1500#0" expanded="true" />
-            <element signature="e#5293#5294#0" expanded="true" />
-            <element signature="e#5364#5365#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/State.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2397">
@@ -1186,6 +1159,33 @@
             <element signature="e#2405#2406#0" expanded="true" />
             <element signature="e#2485#2486#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AlliesGraph.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="30" column="5" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
+          <folding>
+            <element signature="e#943#944#0" expanded="true" />
+            <element signature="e#991#992#0" expanded="true" />
+            <element signature="e#1032#1033#0" expanded="true" />
+            <element signature="e#1071#1072#0" expanded="true" />
+            <element signature="e#1117#1118#0" expanded="true" />
+            <element signature="e#1164#1165#0" expanded="true" />
+            <element signature="e#1463#1464#0" expanded="true" />
+            <element signature="e#1499#1500#0" expanded="true" />
+            <element signature="e#5293#5294#0" expanded="true" />
+            <element signature="e#5364#5365#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Dispute.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="782">
+          <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
